@@ -15,6 +15,11 @@ class Settings(BaseSettings):
         return (f'postgresql+psycopg2://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}'
                 f'@{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}')
 
+    @property
+    def db_url_migrations(self) -> str:
+        return (f'postgresql+psycopg2://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}'
+                f'@{self.POSTGRES_HOST}:5432/{self.POSTGRES_DB}')
+
     model_config = SettingsConfigDict(env_file='.env')
 
 
