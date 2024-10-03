@@ -1,14 +1,9 @@
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy import ForeignKey, String
-from typing import TYPE_CHECKING
 from datetime import datetime
 
 from app.core import Base
 from app.utils import datetime_utcnow
-
-if TYPE_CHECKING:
-    from app.User import User
-    from app.Post import Post
 
 
 class Comment(Base):
