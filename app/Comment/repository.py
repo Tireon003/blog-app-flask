@@ -12,7 +12,7 @@ class CommentRepository(BaseRepository):
             .filter_by(post_id=post_id)
             .order_by(Comment.created_at.desc())
         )
-        result = self.db.execute(stmt).scalars()
+        result = self.db.session.execute(stmt).scalars()
         comments = [comment for comment in result.all()]
         return comments
 
@@ -20,8 +20,8 @@ class CommentRepository(BaseRepository):
         comment = self.db.get(Comment, comment_id)
         if comment:
             comment.content = content
-            self.db.add(comment)
-            self.db.commit()
+            self.db.session.add(comment)
+            self.db.session.commit()
 
     def insert_to_post(self, post_id: int, owner_id: int, content: str) -> None:
         comment = Comment(
@@ -29,13 +29,13 @@ class CommentRepository(BaseRepository):
             post_id=post_id,
             content=content,
         )
-        self.db.add(comment)
-        self.db.commit()
+        self.db.session.add(comment)
+        self.db.session.commit()
 
     def delete(self, comment_id: int) -> None:
         stmt = (
             delete(Comment)
             .filter_by(id=comment_id)
         )
-        self.db.execute(stmt)
-        self.db.commit()
+        self.db.session.execute(stmt)
+        self.db.session.commit()
