@@ -14,5 +14,6 @@ class Role(Base):
     name: Mapped[str]
 
     users: Mapped[list["User"]] = relationship(
-        back_populates="role"
+        back_populates="role",
+        lazy="selectin",
     )
