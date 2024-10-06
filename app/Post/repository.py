@@ -19,8 +19,7 @@ class PostRepository(BaseRepository):
         self.__db.session.add(post)
         self.__db.session.commit()
 
-    def increment_views(self, post_id: int) -> None:
-        post = self.__db.session.get(Post, post_id)
+    def increment_views(self, post: Post) -> Post:
         post.views += 1
         self.__db.session.add(post)
         self.__db.session.commit()
@@ -35,7 +34,12 @@ class PostRepository(BaseRepository):
         return self.__db.session.scalars(stmt).all()
 
     def select_post_by_id(self, post_id: int) -> Post | None:
-        return self.__db.session.get(Post, post_id)
+        post = self.__db.session.get(Post, post_id)
+        return post
 
-    def get_by_author_id(self, author_id: int) -> list[Post]:
-        return self.__db.session.scalars(select())
+    def select_by_author_id(self, author_id: int) -> list[Post] | None:
+        stmt = (
+            select(Post)
+            .filter_by(id=author_id)
+        )
+        return self.__db.session.scalars(stmt).all()
