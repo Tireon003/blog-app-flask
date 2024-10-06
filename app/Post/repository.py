@@ -10,7 +10,7 @@ class PostRepository(BaseRepository):
         post = Post(title=title, content=content, author_id=author_id)
         self.__db.session.add(post)
 
-    def update(self,post_id: int,  title: str | None = None, content: str | None = None) -> None:
+    def update(self, post_id: int,  title: str | None = None, content: str | None = None) -> None:
         post = self.__db.session.get(Post, post_id)
         if title:
             post.title = title
