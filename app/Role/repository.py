@@ -7,12 +7,12 @@ class RoleRepository(BaseRepository):
 
     def insert(self, name: str) -> None:
         role = Role(name=name)
-        self.db.session.add(role)
-        self.db.session.commit()
+        self.__db.session.add(role)
+        self.__db.session.commit()
 
     def select(self) -> list[Role] | None:
         stmt = select(Role)
-        roles = self.db.session.scalars(stmt).all()
+        roles = self.__db.session.scalars(stmt).all()
         return roles
 
     def delete(self, role_id: int) -> None:
@@ -20,5 +20,5 @@ class RoleRepository(BaseRepository):
             delete(Role)
             .filter_by(id=role_id)
         )
-        self.db.session.execute(stmt)
-        self.db.session.commit()
+        self.__db.session.execute(stmt)
+        self.__db.session.commit()

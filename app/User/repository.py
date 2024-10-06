@@ -22,24 +22,24 @@ class UserRepository(BaseRepository):
             email=email,
             role_id=role_id,
         )
-        self.db.session.add(user)
-        self.db.session.commit()
+        self.__db.session.add(user)
+        self.__db.session.commit()
 
     def select(self, user_id: int) -> User | None:
-        user = self.db.session.get(User, user_id)
+        user = self.__db.session.get(User, user_id)
         return user
 
     def update(self, user_id: int, **kwargs) -> None:
-        user = self.db.session.get(User, user_id)
+        user = self.__db.session.get(User, user_id)
         for k, v in kwargs.items():
             if hasattr(user, k):
                 setattr(user, k, v)
-        self.db.session.add(user)
-        self.db.session.commit()
+        self.__db.session.add(user)
+        self.__db.session.commit()
 
     def delete(self, user_id: int) -> None:
         stmt = (
             delete(User)
             .filter_by(id=user_id)
         )
-        self.db.session.execute(stmt)
+        self.__db.session.execute(stmt)
