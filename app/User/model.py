@@ -19,7 +19,7 @@ class User(Base):
 
     posts: Mapped[list["Post"]] = relationship(
         back_populates="author",
-        lazy=True,
+        lazy="dynamic",
     )
 
     role: Mapped["Role"] = relationship(
