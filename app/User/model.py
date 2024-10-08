@@ -1,13 +1,10 @@
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey
 from datetime import datetime
-from typing import TYPE_CHECKING
 
 from app.core import Base
-
-if TYPE_CHECKING:
-    from app.Post import Post
-    from app.Role import Role
+from app.Post import Post
+from app.Role import Role
 
 
 class User(Base):
