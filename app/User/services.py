@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING
 from datetime import datetime
+from injector import inject
 
 from .model import User
 
