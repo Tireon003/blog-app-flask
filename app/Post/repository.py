@@ -1,10 +1,13 @@
 from sqlalchemy import select
+from flask_sqlalchemy import SQLAlchemy
 
-from app.core import BaseRepository
 from .model import Post
 
 
-class PostRepository(BaseRepository):
+class PostRepository:
+
+    def __init__(self, db: SQLAlchemy) -> None:
+        self.__db = db
 
     def insert(self, title: str, content: str, author_id: int) -> None:
         post = Post(title=title, content=content, author_id=author_id)

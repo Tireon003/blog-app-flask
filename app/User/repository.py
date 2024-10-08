@@ -1,11 +1,15 @@
 from datetime import datetime
 from sqlalchemy import delete
+from flask_sqlalchemy import SQLAlchemy
 
 from .model import User
 from app.core import BaseRepository
 
 
-class UserRepository(BaseRepository):
+class UserRepository:
+
+    def __init__(self, db: SQLAlchemy) -> None:
+        self.__db = db
 
     def insert(
             self,
@@ -32,7 +36,7 @@ class UserRepository(BaseRepository):
     def update(self, user_id: int, **kwargs) -> None:
         user = self.__db.session.get(User, user_id)
         for k, v in kwargs.items():
-            if hasattr(user, k):
+            if hasattr(user, k) and v is not None:
                 setattr(user, k, v)
         self.__db.session.add(user)
         self.__db.session.commit()

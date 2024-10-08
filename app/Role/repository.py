@@ -1,9 +1,13 @@
 from sqlalchemy import select, delete
+from flask_sqlalchemy import SQLAlchemy
 
-from app.core import BaseRepository
 from .model import Role
 
-class RoleRepository(BaseRepository):
+
+class RoleRepository:
+
+    def __init__(self, db: SQLAlchemy) -> None:
+        self.__db = db
 
     def insert(self, name: str) -> None:
         role = Role(name=name)
