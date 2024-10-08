@@ -9,4 +9,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 #CMD ["python3", "app/main.py"]
-CMD alembic upgrade head && python3 app/main.py
+CMD alembic upgrade head && python3 main.py
