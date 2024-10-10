@@ -37,3 +37,6 @@ class PostService:
     def get_author_posts(self, author_id: int) -> list[Post] | None:
         posts = self.repo.select_by_author_id(author_id)
         return posts
+
+    def delete_post(self, post_id: int) -> None:
+        self.repo.delete(post_id=post_id)
